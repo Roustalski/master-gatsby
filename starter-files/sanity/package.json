@@ -28,10 +28,15 @@
     "@sanity/google-maps-input": "1.150.1",
     "@sanity/structure": "1.150.1",
     "@sanity/vision": "1.150.6",
+    "@types/react": "^17.0.3",
+    "@types/react-dom": "^17.0.3",
+    "@typescript-eslint/eslint-plugin": "^4.19.0",
+    "@typescript-eslint/parser": "^4.19.0",
     "prop-types": "^15.7",
     "react": "^16.13",
     "react-dom": "^16.13",
-    "react-icons": "^3.11.0"
+    "react-icons": "^3.11.0",
+    "typescript": "^4.2.3"
   },
   "devDependencies": {
     "babel-eslint": "^10.1.0",
