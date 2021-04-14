@@ -1,5 +1,5 @@
 import { Link } from "gatsby";
-import { FluidObject } from "gatsby-image";
+import Img, { FixedObject, FluidObject } from "gatsby-image";
 import React from "react";
 
 type Props = {
@@ -11,6 +11,7 @@ export type Pizza = {
   image: {
     asset: {
       fluid: FluidObject | FluidObject[];
+      fixed: FixedObject | FixedObject[];
     };
   };
   name: string;
@@ -32,6 +33,7 @@ type SinglePizzaProps = {
 };
 
 const SinglePizza = ({ pizza }: SinglePizzaProps) => {
+  console.log(pizza.name, pizza.image);
   return (
     <div>
       <Link to={`pizza/${pizza.slug?.current}`}>
@@ -39,6 +41,7 @@ const SinglePizza = ({ pizza }: SinglePizzaProps) => {
           <span className="mark">{pizza.name}</span>
         </h2>
         <p>{pizza.toppings?.map((topping) => topping.name).join(", ")}</p>
+        <Img fluid={pizza.image.asset.fluid} alt={pizza.name}></Img>
       </Link>
     </div>
   );
