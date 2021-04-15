@@ -1,18 +1,17 @@
 import { graphql, Link, useStaticQuery } from "gatsby";
 import React from "react";
 import styled from "styled-components";
+import { Pizza } from "../types/pizza";
 import { Topping } from "../types/toppings";
-import { Pizza } from "./pizza-list";
 
-type ToppingQuery = {
-  toppings: { nodes: Topping[] };
+type PizzaQuery = {
   pizzas: { nodes: Pizza[] };
 };
 
-type ToppingCountOnPizzas = {
+type ToppingCounts = {
   id: string;
   name: string;
-  count: number;
+  onNumPizzas: number;
 };
 
 const ToppingsStyles = styled.div`
@@ -38,38 +37,31 @@ const ToppingsStyles = styled.div`
   }
 `;
 
-const createNewToppingCount = ({ id, name }: Topping): ToppingCountOnPizzas => {
+const createNewToppingCount = ({ id, name }: Topping): ToppingCounts => {
   return {
-    count: 0,
+    onNumPizzas: 0,
     id,
     name,
   };
 };
 
-const countToppingsOnPizzas = (pizzas: Pizza[]): ToppingCountOnPizzas[] => {
-  const map = pizzas
+const countToppingsOnPizzas = (pizzas: Pizza[]): ToppingCounts[] => {
+  const pizzaMap = pizzas
     .map((pizza) => pizza.toppings!)
     .flat()
     .reduce((map, { id, name, vegetarian }) => {
       const tcop =
         map.get(id) || createNewToppingCount({ id, name, vegetarian });
-      tcop.count++;
+      tcop.onNumPizzas++;
       map.set(id, tcop);
       return map;
-    }, new Map<string, ToppingCountOnPizzas>());
-  return [...map.values()].sort((a, b) => b.count - a.count);
+    }, new Map<string, ToppingCounts>());
+  return [...pizzaMap.values()].sort((a, b) => b.onNumPizzas - a.onNumPizzas);
 };
 
 export default () => {
-  const result = useStaticQuery<ToppingQuery>(graphql`
+  const result = useStaticQuery<PizzaQuery>(graphql`
     query {
-      toppings: allSanityTopping {
-        nodes {
-          name
-          id
-          vegetarian
-        }
-      }
       pizzas: allSanityPizza {
         nodes {
           toppings {
@@ -82,18 +74,15 @@ export default () => {
   `);
 
   const pizzas = result.pizzas.nodes;
-  const toppings = result.toppings.nodes;
-  console.clear();
   const toppingsWithCounts = countToppingsOnPizzas(pizzas);
-  console.log(toppingsWithCounts);
   return (
     <ToppingsStyles>
-      {toppingsWithCounts.map((twc) => 
+      {toppingsWithCounts.map((twc) => (
         <Link to={`/topping/${twc.name}`} key={twc.id}>
           <span className="name">{twc.name}</span>
-          <span className="count">{twc.count}</span>
+          <span className="count">{twc.onNumPizzas}</span>
         </Link>
-      )}
+      ))}
     </ToppingsStyles>
   );
 };

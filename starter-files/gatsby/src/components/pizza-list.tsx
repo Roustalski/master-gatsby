@@ -1,27 +1,11 @@
 import { Link } from "gatsby";
-import Img, { FixedObject, FluidObject } from "gatsby-image";
+import Img from "gatsby-image";
 import React from "react";
 import styled from "styled-components";
-import { Topping } from "../types/toppings";
+import { Pizza } from "../types/pizza";
 
 type Props = {
   pizzas: Pizza[];
-};
-
-export type Pizza = {
-  id: string;
-  image: {
-    asset: {
-      fluid: FluidObject | FluidObject[];
-      fixed: FixedObject | FixedObject[];
-    };
-  };
-  name: string;
-  price: number;
-  slug?: {
-    current?: string;
-  };
-  toppings?: Topping[];
 };
 
 type SinglePizzaProps = {
