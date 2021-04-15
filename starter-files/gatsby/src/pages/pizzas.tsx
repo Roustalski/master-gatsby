@@ -1,6 +1,7 @@
 import { graphql, PageProps } from "gatsby";
 import React from "react";
 import PizzaList, { Pizza } from "../components/pizza-list";
+import ToppingsFilter from "../components/toppings-filter";
 
 type PizzasQuery = {
   pizzas: {
@@ -12,7 +13,7 @@ export default function PizzasPage({ data }: PageProps<PizzasQuery>) {
   const pizzas = data.pizzas.nodes;
   return (
     <>
-      {/* <p>{props.path}</p> */}
+      <ToppingsFilter />
       <PizzaList pizzas={pizzas}></PizzaList>
     </>
   );
