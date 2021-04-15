@@ -52,7 +52,7 @@ const PizzaStyles = styled.div`
 const SinglePizza = ({ pizza }: SinglePizzaProps) => {
   return (
     <PizzaStyles>
-      <Link to={`pizza/${pizza.slug?.current}`}>
+      <Link to={`/pizza/${pizza.slug?.current}`}>
         <h2>
           <span className="mark">{pizza.name}</span>
         </h2>
@@ -63,7 +63,7 @@ const SinglePizza = ({ pizza }: SinglePizzaProps) => {
   );
 };
 
-export default ({ pizzas }: Props) => {
+const PizzaList = ({ pizzas }: Props) => {
   return (
     <PizzaGridStyles>
       {pizzas.map((pizza) => (
@@ -72,3 +72,4 @@ export default ({ pizzas }: Props) => {
     </PizzaGridStyles>
   );
 };
+export default PizzaList;
