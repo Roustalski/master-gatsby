@@ -4,7 +4,7 @@ import React from "react";
 import styled from "styled-components";
 import { Pizza } from "../types/pizza";
 
-type Props = {
+type PizzaListProps = {
   pizzas: Pizza[];
 };
 
@@ -47,7 +47,7 @@ const SinglePizza = ({ pizza }: SinglePizzaProps) => {
   );
 };
 
-const PizzaList = ({ pizzas }: Props) => {
+const PizzaList = ({ pizzas }: PizzaListProps) => {
   return (
     <PizzaGridStyles>
       {pizzas.map((pizza) => (

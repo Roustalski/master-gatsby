@@ -1,17 +1,15 @@
 import { graphql, Link, useStaticQuery } from "gatsby";
 import React from "react";
 import styled from "styled-components";
+import { countToppingsOnPizzas } from "../rules/pizzas-by-topping";
 import { Pizza } from "../types/pizza";
-import { Topping } from "../types/toppings";
+
+type ToppingsFilterProps = {
+  current?: string;
+};
 
 type PizzaQuery = {
   pizzas: { nodes: Pizza[] };
-};
-
-type ToppingCounts = {
-  id: string;
-  name: string;
-  onNumPizzas: number;
 };
 
 const ToppingsStyles = styled.div`
@@ -31,35 +29,13 @@ const ToppingsStyles = styled.div`
       background: white;
       padding: 2px 5px;
     }
-    .active {
+    &[aria-current="page"] {
       background: var(--yellow);
     }
   }
 `;
 
-const createNewToppingCount = ({ id, name }: Topping): ToppingCounts => {
-  return {
-    onNumPizzas: 0,
-    id,
-    name,
-  };
-};
-
-const countToppingsOnPizzas = (pizzas: Pizza[]): ToppingCounts[] => {
-  const pizzaMap = pizzas
-    .map((pizza) => pizza.toppings!)
-    .flat()
-    .reduce((map, { id, name, vegetarian }) => {
-      const tcop =
-        map.get(id) || createNewToppingCount({ id, name, vegetarian });
-      tcop.onNumPizzas++;
-      map.set(id, tcop);
-      return map;
-    }, new Map<string, ToppingCounts>());
-  return [...pizzaMap.values()].sort((a, b) => b.onNumPizzas - a.onNumPizzas);
-};
-
-export default () => {
+const ToppingsFilter = ({ current }: ToppingsFilterProps) => {
   const result = useStaticQuery<PizzaQuery>(graphql`
     query {
       pizzas: allSanityPizza {
@@ -77,6 +53,10 @@ export default () => {
   const toppingsWithCounts = countToppingsOnPizzas(pizzas);
   return (
     <ToppingsStyles>
+      <Link to="/pizzas">
+        <span className="name">All</span>
+        <span className="count">{pizzas.length}</span>
+      </Link>
       {toppingsWithCounts.map((twc) => (
         <Link to={`/topping/${twc.name}`} key={twc.id}>
           <span className="name">{twc.name}</span>
@@ -86,3 +66,5 @@ export default () => {
     </ToppingsStyles>
   );
 };
+
+export default ToppingsFilter;

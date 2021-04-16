@@ -10,22 +10,31 @@ type PizzasQuery = {
   };
 };
 
-export default function PizzasPage({ data }: PageProps<PizzasQuery>) {
+type ToppingContext = {
+  topping: string;
+};
+
+export default function ToppingPage({
+  data,
+  pageContext: { topping },
+}: PageProps<PizzasQuery, ToppingContext>) {
   const pizzas = data.pizzas.nodes;
   return (
     <>
-      <ToppingsFilter />
+      <ToppingsFilter current={topping} />
       <PizzaList pizzas={pizzas}></PizzaList>
     </>
   );
 }
 
 export const query = graphql`
-  query {
-    pizzas: allSanityPizza {
+  query($topping: String!) {
+    pizzas: allSanityPizza(
+      filter: { toppings: { elemMatch: { name: { eq: $topping } } } }
+    ) {
       nodes {
-        name
         id
+        name
         price
         slug {
           current
@@ -33,13 +42,11 @@ export const query = graphql`
         toppings {
           id
           name
+          vegetarian
         }
         image {
           asset {
-            fixed(width: 200, height: 200) {
-              ...GatsbySanityImageFixed
-            }
-            fluid(maxWidth: 400) {
+            fluid(maxWidth: 800) {
               ...GatsbySanityImageFluid
             }
           }

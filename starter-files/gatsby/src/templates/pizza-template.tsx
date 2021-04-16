@@ -1,6 +1,6 @@
 import { graphql } from "gatsby";
 import React from "react";
-import { Pizza } from "../../../types/pizza";
+import { Pizza } from "../types/pizza";
 import Img from "gatsby-image";
 import styled from "styled-components";
 
