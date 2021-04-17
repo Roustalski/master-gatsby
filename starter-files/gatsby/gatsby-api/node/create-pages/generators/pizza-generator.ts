@@ -1,6 +1,6 @@
 import { CreatePagesArgs } from "gatsby";
 import path from "path";
-import { Pizza } from "../../../src/types/pizza";
+import { Pizza } from "../../../../src/types/pizza";
 
 type PizzaQuery = {
   pizzas: { nodes: Pizza[] };

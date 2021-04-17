@@ -1,6 +1,6 @@
 import { CreatePagesArgs } from "gatsby";
 import path from "path";
-import { Topping } from "../../../src/types/toppings";
+import { Topping } from "../../../../src/types/toppings";
 
 type ToppingQuery = {
   toppings: { nodes: Topping[] };
