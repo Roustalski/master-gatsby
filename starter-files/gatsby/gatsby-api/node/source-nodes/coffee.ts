@@ -1,12 +1,6 @@
 import { NodeInput, SourceNodesArgs } from "gatsby";
 import fetch from "isomorphic-fetch";
-
-type Coffee = {
-  title: string;
-  description: string;
-  ingredients: string[];
-  id: 19;
-};
+import { Coffee } from "../../../src/types/coffee";
 
 const fetchCoffeeList = async (): Promise<Coffee[]> => {
   const baseURL = "https://api.sampleapis.com/coffee/hot";
