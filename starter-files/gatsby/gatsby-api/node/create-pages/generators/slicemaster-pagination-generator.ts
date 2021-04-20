@@ -14,7 +14,7 @@ const createSlicemasterPaginationPages = async ({
   graphql,
 }: CreatePagesArgs) => {
   const pageSize = parseInt(process.env.GATSBY_PAGE_SIZE || "0");
-  if (!pageSize) {
+  if (!pageSize || pageSize === 0) {
     throw Error(`Missing environment variable GATSBY_PAGE_SIZE`);
   }
 
@@ -35,14 +35,16 @@ const createSlicemasterPaginationPages = async ({
 
   const pageCount = Math.ceil(data!.people.totalCount / pageSize);
   Array.from({ length: pageCount }).forEach((_, idx) => {
+    const context = {
+      skip: idx * pageSize,
+      currentPage: idx + 1,
+      pageSize,
+    };
+    console.log('what the?', context);
     actions.createPage({
       path: `/slicemasters/${idx + 1}`,
       component: path.resolve("./src/pages/slicemasters.tsx"),
-      context: {
-        skip: idx * pageSize,
-        currentPage: idx + 1,
-        pageSize,
-      },
+      context,
     });
   });
 };
