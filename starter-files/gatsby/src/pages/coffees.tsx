@@ -1,6 +1,7 @@
 import { graphql, PageProps } from "gatsby";
 import React from "react";
 import styled from "styled-components";
+import SEO from "../components/seo";
 import { Coffee } from "../types/coffee";
 
 type CoffeesQuery = {
@@ -29,6 +30,7 @@ export default function CoffeesPage({
   console.log(coffeeList);
   return (
     <>
+      <SEO title="Coffee selection"/>
       <h1>Coffee selection</h1>
       <CoffeeListStyles>
         {coffeeList.map((coffee) => (

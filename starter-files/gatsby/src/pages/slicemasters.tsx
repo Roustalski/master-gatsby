@@ -3,6 +3,7 @@ import Img from "gatsby-image";
 import React from "react";
 import styled from "styled-components";
 import Pagination from "../components/pagination";
+import SEO from "../components/seo";
 import { Person } from "../types/person";
 
 type SlicemastersQuery = {
@@ -54,6 +55,7 @@ export default function SlicemastersPage({
 }: PageProps<SlicemastersQuery, SlicemastersContext>) {
   return (
     <>
+      <SEO title={`Slicemasters - Page ${ctx.currentPage || 1}`}/>
       <Pagination
         base="slicemasters"
         totalCount={people.totalCount}

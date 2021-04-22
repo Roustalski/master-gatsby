@@ -1,8 +1,9 @@
 import { graphql, PageProps } from "gatsby";
-import React from "react";
-import { Person } from "../types/person";
 import Img from "gatsby-image";
+import React from "react";
 import styled from "styled-components";
+import SEO from "../components/seo";
+import { Person } from "../types/person";
 
 type PersonQuery = {
   person: { nodes: Person[] };
@@ -38,13 +39,18 @@ const PersonTemplate = ({
 }: PageProps<PersonQuery, PersonContext>) => {
   const person = nodes[0];
   return (
-    <PersonStyles>
-      <p>{person.description}</p>
-      <h2><span>{person.name}</span></h2>
-      <Img alt={person.name} fluid={person.image.asset.fluid}>
-        {person.name}
-      </Img>
-    </PersonStyles>
+    <>
+      <SEO title={person.name} image={person.image?.asset?.fluid?.src} />
+      <PersonStyles>
+        <p>{person.description}</p>
+        <h2>
+          <span>{person.name}</span>
+        </h2>
+        <Img alt={person.name} fluid={person.image.asset.fluid}>
+          {person.name}
+        </Img>
+      </PersonStyles>
+    </>
   );
 };
 

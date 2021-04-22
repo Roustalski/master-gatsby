@@ -40,7 +40,6 @@ const createSlicemasterPaginationPages = async ({
       currentPage: idx + 1,
       pageSize,
     };
-    console.log('what the?', context);
     actions.createPage({
       path: `/slicemasters/${idx + 1}`,
       component: path.resolve("./src/pages/slicemasters.tsx"),

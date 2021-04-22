@@ -7,8 +7,10 @@ export default {
     title: `Slick's slices`,
     siteUrl: `https://slicks.pizza`,
     description: `The best pizza in Texas!`,
+    twitter: '@slicksSlices',
   },
   plugins: [
+    "gatsby-plugin-react-helmet",
     "gatsby-plugin-styled-components",
     {
       resolve: "gatsby-source-sanity",
