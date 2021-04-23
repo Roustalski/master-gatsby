@@ -1,6 +1,7 @@
 import { ChangeEvent, useState } from "react";
+import DynamicForm from "../types/dynamic-form";
 
-const useForm = (defaults: any) => {
+const useForm = (defaults: DynamicForm) => {
   const [values, setValues] = useState(defaults);
 
   function updateValue(e: ChangeEvent<HTMLInputElement>) {

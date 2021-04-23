@@ -1,6 +1,7 @@
 import { graphql, PageProps } from "gatsby";
 import Img from "gatsby-image";
 import React from "react";
+import OrderItemList from "../components/order-item-list";
 import SEO from "../components/seo";
 import MenuItemStyles from "../styles/menu-item-styles";
 import OrderStyles from "../styles/order-styles";
@@ -8,6 +9,7 @@ import { Pizza } from "../types/pizza";
 import calculatePizzaPrice from "../utils/calculate-pizza-price";
 import formatMoney from "../utils/format-money";
 import useForm from "../utils/useform";
+import useOrder from "../utils/useOrder";
 
 type OrderPageQuery = {
   pizzas: { nodes: Pizza[] };
@@ -15,6 +17,10 @@ type OrderPageQuery = {
 
 export default function OrderPage({ data }: PageProps<OrderPageQuery>) {
   const { values, updateValue } = useForm({ name: "", email: "" });
+  const { order, addToOrder, removeFromOrder } = useOrder({
+    pizzaList: data.pizzas.nodes,
+    formValues: values,
+  });
   return (
     <>
       <SEO title="Order a Pizza!" />
@@ -53,7 +59,10 @@ export default function OrderPage({ data }: PageProps<OrderPageQuery>) {
                 </div>
                 <div>
                   {["S", "M", "L"].map((size) => (
-                    <button type="button">
+                    <button
+                      type="button"
+                      onClick={() => addToOrder({ pizzaId: pizza.id, size })}
+                    >
                       {size}{" "}
                       {formatMoney(calculatePizzaPrice(pizza.price, size))}
                     </button>
@@ -65,6 +74,11 @@ export default function OrderPage({ data }: PageProps<OrderPageQuery>) {
         </fieldset>
         <fieldset className="order">
           <legend>Order</legend>
+          <OrderItemList
+            orderItems={order}
+            pizzas={data.pizzas.nodes}
+            removeFromOrder={removeFromOrder}
+          ></OrderItemList>
         </fieldset>
       </OrderStyles>
     </>
