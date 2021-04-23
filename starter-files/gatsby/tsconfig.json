@@ -1,5 +1,5 @@
 {
-  "include": ["./src/**/*", "gatsby-api"],
+  "include": ["./src/**/*", "gatsby-api", "./functions/**/*"],
   "compilerOptions": {
     "target": "esnext",
     "module": "esnext",
@@ -9,6 +9,7 @@
     "strict": true,
     "esModuleInterop": true,
     "experimentalDecorators": true,
+    "isolatedModules": true,
     "emitDecoratorMetadata": true,
     "noEmit": true,
     "skipLibCheck": true
