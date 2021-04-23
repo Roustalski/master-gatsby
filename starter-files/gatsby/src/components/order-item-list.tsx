@@ -22,8 +22,12 @@ const orderItemList = (props: OrderItemListProps) => {
             <Img fluid={pizza?.image.asset.fluid!}></Img>
             <h2>{pizza?.name}</h2>
             <p>
-              {orderItem.size} -
-              {formatMoney(calculatePizzaPrice(pizza?.price!, orderItem.size))}
+              <span>Size: {orderItem.size}</span>
+              <p>
+                {formatMoney(
+                  calculatePizzaPrice(pizza?.price!, orderItem.size)
+                )}
+              </p>
             </p>
             <button
               type="button"

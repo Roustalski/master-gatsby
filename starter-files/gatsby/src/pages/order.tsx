@@ -6,6 +6,7 @@ import SEO from "../components/seo";
 import MenuItemStyles from "../styles/menu-item-styles";
 import OrderStyles from "../styles/order-styles";
 import { Pizza } from "../types/pizza";
+import getOrderTotal from "../utils/calculate-order-total";
 import calculatePizzaPrice from "../utils/calculate-pizza-price";
 import formatMoney from "../utils/format-money";
 import useForm from "../utils/useform";
@@ -79,6 +80,13 @@ export default function OrderPage({ data }: PageProps<OrderPageQuery>) {
             pizzas={data.pizzas.nodes}
             removeFromOrder={removeFromOrder}
           ></OrderItemList>
+        </fieldset>
+        <fieldset>
+          <h3>
+            Your total is{" "}
+            {getOrderTotal({ items: order, pizzas: data.pizzas.nodes })}
+          </h3>
+          <button type="submit">Order Ahead</button>
         </fieldset>
       </OrderStyles>
     </>
