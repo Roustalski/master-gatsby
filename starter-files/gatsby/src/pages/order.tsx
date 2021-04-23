@@ -61,6 +61,7 @@ export default function OrderPage({ data }: PageProps<OrderPageQuery>) {
                 <div>
                   {["S", "M", "L"].map((size) => (
                     <button
+                      key={`sid-${size}`}
                       type="button"
                       onClick={() => addToOrder({ pizzaId: pizza.id, size })}
                     >

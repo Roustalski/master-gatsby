@@ -18,7 +18,7 @@ const orderItemList = (props: OrderItemListProps) => {
       {props.orderItems.map((orderItem, idx) => {
         const pizza = props.pizzas.find((p) => p.id === orderItem.pizzaId);
         return (
-          <MenuItemStyles>
+          <MenuItemStyles key={`${orderItem.pizzaId}-${idx}`}>
             <Img fluid={pizza?.image.asset.fluid!}></Img>
             <h2>{pizza?.name}</h2>
             <p>

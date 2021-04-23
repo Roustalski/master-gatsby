@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import OrderContext from "../components/order-context";
 import DynamicForm from "../types/dynamic-form";
 import { Pizza } from "../types/pizza";
 
@@ -18,7 +19,7 @@ export interface IRemoveFromOrder {
 
 const useOrder = (props: OrderProps) => {
   // 1. Create some state to hold our order
-  const [order, setOrder] = useState<PizzaOrder[]>([]);
+  const [order, setOrder] = useContext(OrderContext);
 
   // 2. Function to add things to order
   function addToOrder(orderedPizza: PizzaOrder) {
