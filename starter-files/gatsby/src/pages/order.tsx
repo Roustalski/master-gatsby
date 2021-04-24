@@ -34,7 +34,7 @@ export default function OrderPage({ data }: PageProps<OrderPageQuery>) {
     <>
       <SEO title="Order a Pizza!" />
       <OrderStyles>
-        <fieldset>
+        <fieldset disabled={loading}>
           <legend>Your info</legend>
           <label htmlFor="name">
             Name
@@ -57,7 +57,7 @@ export default function OrderPage({ data }: PageProps<OrderPageQuery>) {
             />
           </label>
         </fieldset>
-        <fieldset className="menu">
+        <fieldset className="menu" disabled={loading}>
           <legend>Menu</legend>
           {data.pizzas.nodes.map((pizza) => {
             return (
@@ -82,7 +82,7 @@ export default function OrderPage({ data }: PageProps<OrderPageQuery>) {
             );
           })}
         </fieldset>
-        <fieldset className="order">
+        <fieldset className="order" disabled={loading}>
           <legend>Order</legend>
           <OrderItemList
             orderItems={order}

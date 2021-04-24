@@ -9355,6 +9355,9 @@ var handler = async (event, context) => {
     if (!body[field]) {
       return createRequestErrorResponse(`Missing required field ${field}`);
     }
+    if (field === "order" && body[field].length === 0) {
+      return createRequestErrorResponse(`There are no items in your order`);
+    }
   }
   const info = await transporter.sendMail({
     from: "Slick's Slices <slick@example.com>",

@@ -48,6 +48,9 @@ const handler: Handler = async (event, context) => {
     if (!body[field]) {
       return createRequestErrorResponse(`Missing required field ${field}`);
     }
+    if (field === "order" && body[field].length === 0) {
+      return createRequestErrorResponse(`There are no items in your order`);
+    }
   }
 
   // send the email
