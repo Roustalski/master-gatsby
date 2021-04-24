@@ -1,5 +1,5 @@
 {
-  "include": ["./src/**/*", "gatsby-api", "./functions/**/*"],
+  "include": ["./src/**/*", "gatsby-api", "serverless/**/*"],
   "compilerOptions": {
     "target": "esnext",
     "module": "esnext",

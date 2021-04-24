@@ -1,8 +1,8 @@
 import { FluidObject } from "gatsby-image";
+import { BodyOrder, PizzaOrder } from "../types/order";
 import { Pizza } from "../types/pizza";
 import calculatePizzaPrice from "./calculate-pizza-price";
 import formatMoney from "./format-money";
-import { BodyOrder, PizzaOrder } from "./useOrder";
 
 export const mapPizzaToBody = (order: PizzaOrder[], pizzaList: Pizza[]) => {
   return order.map((item) => {

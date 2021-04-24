@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import OrderContext from "../components/order-context";
 import DynamicForm from "../types/dynamic-form";
+import { PizzaOrder } from "../types/order";
 import { Pizza } from "../types/pizza";
 import getOrderTotal from "./calculate-order-total";
 import { mapPizzaToBody } from "./map-pizza-to-body";
@@ -8,19 +9,6 @@ import { mapPizzaToBody } from "./map-pizza-to-body";
 export type OrderProps = {
   pizzaList: Pizza[];
   formValues: DynamicForm;
-};
-
-export type PizzaOrder = {
-  pizzaId: string;
-  size: string;
-};
-
-export type BodyOrder = {
-  pizzaId: string;
-  size: string;
-  name: string;
-  thumbnail: string;
-  price: string;
 };
 
 export interface IRemoveFromOrder {
@@ -49,6 +37,7 @@ const useOrder = (props: OrderProps) => {
     setLoading(true);
     setError("");
     setMessage("");
+
     const body = {
       order: mapPizzaToBody(order, props.pizzaList),
       total: getOrderTotal({ items: order, pizzas: props.pizzaList }),

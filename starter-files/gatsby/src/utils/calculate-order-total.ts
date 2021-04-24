@@ -1,7 +1,7 @@
+import { PizzaOrder } from "../types/order";
 import { Pizza } from "../types/pizza";
 import calculatePizzaPrice from "./calculate-pizza-price";
 import formatMoney from "./format-money";
-import { PizzaOrder } from "./useOrder";
 
 export type Order = {
   items: PizzaOrder[];

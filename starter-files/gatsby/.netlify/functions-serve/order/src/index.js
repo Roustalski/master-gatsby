@@ -9316,6 +9316,19 @@ __export(exports, {
   handler: () => handler
 });
 var import_nodemailer = __toModule(require_nodemailer());
+var generateOrderEmail = ({order, total}) => {
+  return `<div>
+    <h2>Your Recent Order for ${total}</h2>
+    <p>Please start walking over, we will have your order ready in teh next 20 minutes.</p>
+    <ul>
+      ${order.map((item) => `<li>
+        <img src="${item.thumbnail}" alt="${item.name}"/>
+        ${item.size} ${item.name} - ${item.price}
+      </li>`)}
+    </ul>
+    <p>Your total is ${total} and due at pickup.</p>
+  </div>`;
+};
 var transporter = import_nodemailer.default.createTransport({
   host: process.env.MAIL_HOST,
   port: 587,
@@ -9324,16 +9337,34 @@ var transporter = import_nodemailer.default.createTransport({
     pass: process.env.MAIL_PSS
   }
 });
+var createRequestErrorResponse = (message) => {
+  return {
+    statusCode: 400,
+    body: JSON.stringify({message})
+  };
+};
 var handler = async (event, context) => {
+  let body;
+  try {
+    body = JSON.parse(event.body || "");
+  } catch {
+    return createRequestErrorResponse("Invalid JSON received as part of the request of the body.");
+  }
+  const requiredFields = ["email", "name", "order"];
+  for (const field of requiredFields) {
+    if (!body[field]) {
+      return createRequestErrorResponse(`Missing required field ${field}`);
+    }
+  }
   const info = await transporter.sendMail({
     from: "Slick's Slices <slick@example.com>",
-    to: "orders@example.com",
+    to: `${body.name} <${body.email}>, orders@example.com`,
     subject: "New Order!",
-    html: `<p>Your new pizza order is here!</p>`
+    html: generateOrderEmail(body)
   });
   return {
     statusCode: 200,
-    body: JSON.stringify(info)
+    body: JSON.stringify({message: "Success"})
   };
 };
 // Annotate the CommonJS export names for ESM import in node:

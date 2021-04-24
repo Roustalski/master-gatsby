@@ -95,7 +95,6 @@ export default function OrderPage({ data }: PageProps<OrderPageQuery>) {
             Your total is{" "}
             {getOrderTotal({ items: order, pizzas: data.pizzas.nodes })}
           </h3>
-          <div>{error ? <p>Error: {error}</p> : ""}</div>
           <button
             type="submit"
             disabled={loading}
@@ -103,6 +102,16 @@ export default function OrderPage({ data }: PageProps<OrderPageQuery>) {
           >
             {loading ? "Placing Order..." : "Order Ahead"}
           </button>
+          {error ?? (
+            <div>
+              <p>Error: {error}</p>
+            </div>
+          )}
+          {message ?? (
+            <div>
+              <p>{message}</p>
+            </div>
+          )}
         </fieldset>
       </OrderStyles>
     </>
