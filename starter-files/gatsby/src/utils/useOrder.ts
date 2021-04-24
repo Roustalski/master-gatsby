@@ -43,6 +43,7 @@ const useOrder = (props: OrderProps) => {
       total: getOrderTotal({ items: order, pizzas: props.pizzaList }),
       name: props.formValues.name,
       email: props.formValues.email,
+      lastNameFek: props.formValues.lastNameFek,
     };
 
     const res = await fetch(`${process.env.GATSBY_SERVERLESS_BASE}/order`, {

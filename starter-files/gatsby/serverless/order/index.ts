@@ -43,6 +43,16 @@ const handler: Handler = async (event, context) => {
       "Invalid JSON received as part of the request of the body."
     );
   }
+
+  if (body.lastNameFek) {
+    return {
+      statusCode: 400,
+      body: JSON.stringify({
+        message: "Boop beep bop zzzzzst goodbye. ERROR: 2345",
+      }),
+    };
+  }
+
   const requiredFields = ["email", "name", "order"];
   for (const field of requiredFields) {
     if (!body[field]) {

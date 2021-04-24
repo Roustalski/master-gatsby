@@ -17,7 +17,7 @@ type OrderPageQuery = {
 };
 
 export default function OrderPage({ data }: PageProps<OrderPageQuery>) {
-  const { values, updateValue } = useForm({ name: "", email: "" });
+  const { values, updateValue } = useForm({ name: "", email: "", lastNameFek: "" });
   const {
     order,
     error,
@@ -54,6 +54,14 @@ export default function OrderPage({ data }: PageProps<OrderPageQuery>) {
               id="email"
               value={values.email}
               onChange={updateValue}
+            />
+            <input
+              type="text"
+              name="lastNameFek"
+              id="lastNameFek"
+              value={values.lastNameFek}
+              onChange={updateValue}
+              className="lastNameFek"
             />
           </label>
         </fieldset>
