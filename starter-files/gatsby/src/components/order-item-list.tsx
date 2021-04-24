@@ -23,11 +23,11 @@ const orderItemList = (props: OrderItemListProps) => {
             <h2>{pizza?.name}</h2>
             <p>
               <span>Size: {orderItem.size}</span>
-              <p>
+              <span>
                 {formatMoney(
                   calculatePizzaPrice(pizza?.price!, orderItem.size)
                 )}
-              </p>
+              </span>
             </p>
             <button
               type="button"

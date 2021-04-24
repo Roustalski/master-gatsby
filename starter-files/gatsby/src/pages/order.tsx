@@ -18,7 +18,15 @@ type OrderPageQuery = {
 
 export default function OrderPage({ data }: PageProps<OrderPageQuery>) {
   const { values, updateValue } = useForm({ name: "", email: "" });
-  const { order, addToOrder, removeFromOrder } = useOrder({
+  const {
+    order,
+    error,
+    loading,
+    message,
+    addToOrder,
+    removeFromOrder,
+    submitOrder,
+  } = useOrder({
     pizzaList: data.pizzas.nodes,
     formValues: values,
   });
@@ -87,7 +95,14 @@ export default function OrderPage({ data }: PageProps<OrderPageQuery>) {
             Your total is{" "}
             {getOrderTotal({ items: order, pizzas: data.pizzas.nodes })}
           </h3>
-          <button type="submit">Order Ahead</button>
+          <div>{error ? <p>Error: {error}</p> : ""}</div>
+          <button
+            type="submit"
+            disabled={loading}
+            onClick={(e) => submitOrder(e)}
+          >
+            {loading ? "Placing Order..." : "Order Ahead"}
+          </button>
         </fieldset>
       </OrderStyles>
     </>
