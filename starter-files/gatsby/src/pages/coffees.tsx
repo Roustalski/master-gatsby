@@ -37,7 +37,7 @@ export default function CoffeesPage({
           <CoffeStyles key={coffee.id}>
             <h2>{coffee.title}</h2>
             <p>{coffee.description}</p>
-            <p>{coffee.ingredients.join(", ")}</p>
+            <p>{coffee.ingredients?.join(", ")}</p>
           </CoffeStyles>
         ))}
       </CoffeeListStyles>
