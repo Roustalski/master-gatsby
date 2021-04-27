@@ -3,6 +3,20 @@ import { Person } from "../types/person";
 import { Pizza } from "../types/pizza";
 import fetchGqlJson from "./fetchGqlJson";
 
+const gql = String.raw;
+const deets = `
+  name
+  _id
+  image {
+    asset {
+      url
+      metadata {
+        lqip
+      }
+    }
+  }
+`;
+
 type HomeData = {
   pizzas: Pizza[];
   people: Person[];
@@ -36,18 +50,18 @@ const getFourUniquePeople = (people: Person[]) => {
 };
 
 const fetchHomeData = async (
-  setCasePizzas: React.Dispatch<React.SetStateAction<Pizza[]>>,
-  setPeople: React.Dispatch<React.SetStateAction<Person[]>>
+  setCasePizzas: React.Dispatch<React.SetStateAction<Pizza[] | undefined>>,
+  setPeople: React.Dispatch<React.SetStateAction<Person[] | undefined>>
 ) => {
   const { data } = await fetchGqlJson<HomeData>(
     process.env.GATSBY_SANITY_GQL_URL!,
-    `
+    gql`
       query {
         pizzas: allPizza {
-          name
+          ${deets}
         }
         people: allPerson {
-          name
+          ${deets}
         }
       }
     `
@@ -57,8 +71,8 @@ const fetchHomeData = async (
 };
 
 const useHomeData = () => {
-  const [casePizzas, setCasePizzas] = useState<Pizza[]>([]);
-  const [onShift, setOnShift] = useState<Person[]>([]);
+  const [casePizzas, setCasePizzas] = useState<Pizza[]>();
+  const [onShift, setOnShift] = useState<Person[]>();
 
   useEffect(() => {
     console.log("[use-home-data] useEffect - Running");
